@@ -1,11 +1,11 @@
 from sights.migrations.serializers import UserSerializer
 from sights.models import sights
-from sights.serializers import sightsSerializer
+from sights.serializers import SightsSerializer
 import sights.serializers
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework import permissions
-from sights.permissions import IsOwnerOrReadOnly
+import sights.permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
