@@ -1,16 +1,10 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from sights import views
-from django.conf.urls import include
+from rest_framework import permissions
 
 
-urlpatterns = [
-    path('sights/', views.sightsList.as_view()),
-    path('sights/<int:pk>/', views.sightsDetail.as_view()),
-    path('users/', views.UserList.as_view()),
-    path('users/<int:pk>/', views.UserDetail.as_view()),
-]
-urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
-]
-urlpatterns = format_suffix_patterns(urlpatterns)
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # Write permissions are only allowed to the owner of the snippet.
+        return obj.owner == request.user
