@@ -1,3 +1,4 @@
+from sights.migrations.serializers import UserSerializer
 from sights.models import sights
 from sights.serializers import sightsSerializer
 import sights.serializers
