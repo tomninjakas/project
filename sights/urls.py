@@ -5,8 +5,8 @@ from django.conf.urls import include
 
 
 urlpatterns = [
-    path('sights/', views.sightsList.as_view()),
-    path('sights/<int:pk>/', views.sightsDetail.as_view()),
+    path('sights/', views.SightsList.as_view()),
+    path('sights/<int:pk>/', views.SightsDetail.as_view()),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
 ]
