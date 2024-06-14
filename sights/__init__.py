@@ -1,2 +1,0 @@
-def permissions():
-    return None

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import sights
+from .models import Sights
 
 
-admin.site.register(sights)
+admin.site.register(Sights)

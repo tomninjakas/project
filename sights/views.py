@@ -1,12 +1,10 @@
-from sights.migrations.serializers import UserSerializer
-from sights.models import sights
-from sights.permissions import IsOwnerOrReadOnly
+from sights.models import Sights
 from sights.serializers import SightsSerializer
-import sights.serializers
+from sights.serializers import UserSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework import permissions
-import sights.permissions
+from sights.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
@@ -22,10 +20,7 @@ class UserDetail(generics.RetrieveAPIView):
 
 
 class SightsList(generics.ListCreateAPIView):
-    """
-    Returns a list of all snippets.
-    """
-    queryset = sights.objects.all()
+    queryset = Sights.objects.all()
     serializer_class = SightsSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter,]
     search_fields = ['title', 'code']
@@ -35,7 +30,8 @@ class SightsList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    class SightsDetail(generics.RetrieveUpdateDestroyAPIView):
-        queryset = sights.objects.all()
-        serializer_class = SightsSerializer
-        permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+class SightsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Sights.objects.all()
+    serializer_class = SightsSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

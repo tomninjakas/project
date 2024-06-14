@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from sights.models import sights, LANGUAGE_CHOICES, STYLE_CHOICES
+from sights.models import Sights, CITY_CHOICES, CATEGORY_CHOICES
 from django.contrib.auth.models import User
 
 
 class SightsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = sights
+        model = Sights
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    sights = serializers.PrimaryKeyRelatedField(many=True, queryset=sights.objects.all())
+    sights = serializers.PrimaryKeyRelatedField(many=True, queryset=Sights.objects.all())
 
     class Meta:
         model = User
